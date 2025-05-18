@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicação Vulnerável - Treinamento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 60px;
+            background-color: #f8f9fa;
+        }
+        .jumbotron {
+            background-color: #e9ecef;
+            padding: 2rem;
+            border-radius: 0.3rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .footer {
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Aplicação Vulnerável</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">Buscar</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/login">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Bem-vindo à Aplicação Vulnerável</h1>
+            <p class="lead">Esta aplicação foi desenvolvida para fins educacionais como parte de um treinamento de segurança ofensiva web.</p>
+            <hr class="my-4">
+            <p>Explore a aplicação e tente encontrar as vulnerabilidades intencionalmente implementadas.</p>
+            <a class="btn btn-primary btn-lg" href="/login" role="button">Fazer Login</a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Galeria de Imagens</h5>
+                        <p class="card-text">Explore nossa galeria de imagens compartilhadas pelos usuários.</p>
+                        <a href="/dashboard" class="btn btn-outline-primary">Ver Galeria</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Busca Avançada</h5>
+                        <p class="card-text">Pesquise por conteúdo específico em nossa base de dados.</p>
+                        <form action="/search" method="get" class="mt-3">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" placeholder="Digite sua busca...">
+                                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Deixe um Comentário</h5>
+                        <p class="card-text">Compartilhe sua opinião sobre nossa aplicação.</p>
+                        <form action="/comment" method="get" class="mt-3">
+                            <div class="mb-3">
+                                <textarea name="text" class="form-control" rows="3" placeholder="Seu comentário aqui..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span>Aplicação Vulnerável &copy; 2025 - Desenvolvida para fins educacionais</span>
+            <!-- Comentário oculto: Acesse /admin para o painel administrativo -->
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
