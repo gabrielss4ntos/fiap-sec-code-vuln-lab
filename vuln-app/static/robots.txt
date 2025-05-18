@@ -1,9 +1,0 @@
-User-Agent: *
-Disallow: /admin-panel
-Disallow: /secret-files/
-Disallow: /backup/
-Disallow: /config/
-
-# Secret admin panel location
-# Note: Remember to remove this before production
-# The admin panel is at /admin-panel.html
