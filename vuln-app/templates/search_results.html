@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerable App - Search Results</title>
+    <link rel="stylesheet" href="/static/css/synthwave.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <div class="synthwave-sun">
+                <div class="sun-circle"></div>
+                <div class="sun-lines"></div>
+            </div>
+        </div>
+        
+        <div class="terminal">
+            <div class="terminal-header">
+                <span class="terminal-prompt">vulnerable@app:~$</span>
+                <span class="terminal-title typewriter" data-speed="80">search_results</span>
+            </div>
+            
+            <div class="terminal-content">
+                <h2>Search Results for: "{{ query }}"</h2>
+                
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <h3 class="challenge-title">Search Gallery</h3>
+                    </div>
+                    
+                    <div class="challenge-content">
+                        <form action="/search" method="get">
+                            <div class="form-group">
+                                <label for="q">Search Query:</label>
+                                <input type="text" id="q" name="q" value="{{ query }}" placeholder="Enter search term">
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                                <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+                            </div>
+                        </form>
+                        
+                        {% if results %}
+                        <div class="profile-card" style="margin-top: 20px;">
+                            <h3>Results:</h3>
+                            <table class="leaderboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in results %}
+                                    <tr>
+                                        <td>{{ result[0] }}</td>
+                                        <td>{{ result[1] }}</td>
+                                        <td>{{ result[2] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <p>No results found.</p>
+                        {% endif %}
+                        
+                        <div class="hint-box" id="sqli-hint">
+                            <p>Hint: Try using SQL injection techniques in the search box. What happens if you add a single quote?</p>
+                            <p>Example: <code>' OR 1=1 --</code></p>
+                            <p>If you see all gallery items, try extracting data from other tables: <code>' UNION SELECT 1, 'FLAG{SQL_1NJ3CT10N_M4ST3R}', 'You found the flag!' FROM users --</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="social-links">
+                <a href="#" class="social-link">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0C5.37 0 0 5.37 0 12C0 17.31 3.435 21.795 8.205 23.385C8.805 23.49 9.03 23.13 9.03 22.815C9.03 22.53 9.015 21.585 9.015 20.58C6 21.135 5.22 19.845 4.98 19.17C4.845 18.825 4.26 17.76 3.75 17.475C3.33 17.25 2.73 16.695 3.735 16.68C4.68 16.665 5.355 17.55 5.58 17.91C6.66 19.725 8.385 19.215 9.075 18.9C9.18 18.12 9.495 17.595 9.84 17.295C7.17 16.995 4.38 15.96 4.38 11.37C4.38 10.065 4.845 8.985 5.61 8.145C5.49 7.845 5.07 6.615 5.73 4.965C5.73 4.965 6.735 4.65 9.03 6.195C9.99 5.925 11.01 5.79 12.03 5.79C13.05 5.79 14.07 5.925 15.03 6.195C17.325 4.635 18.33 4.965 18.33 4.965C18.99 6.615 18.57 7.845 18.45 8.145C19.215 8.985 19.68 10.05 19.68 11.37C19.68 15.975 16.875 16.995 14.205 17.295C14.64 17.67 15.015 18.39 15.015 19.515C15.015 21.12 15 22.41 15 22.815C15 23.13 15.225 23.505 15.825 23.385C18.2072 22.5807 20.2772 21.0497 21.7437 19.0074C23.2101 16.965 23.9993 14.5143 24 12C24 5.37 18.63 0 12 0Z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.643 4.937C22.808 5.307 21.911 5.557 20.968 5.67C21.941 5.08 22.669 4.17 23.016 3.092C22.116 3.626 21.119 4.013 20.058 4.229C19.208 3.33 17.998 2.75 16.658 2.75C14.086 2.75 12 4.836 12 7.407C12 7.767 12.042 8.118 12.12 8.456C8.24 8.261 4.81 6.416 2.518 3.624C2.118 4.309 1.888 5.08 1.888 5.899C1.888 7.451 2.693 8.83 3.899 9.621C3.138 9.599 2.425 9.389 1.8 9.039V9.098C1.8 11.336 3.417 13.184 5.579 13.607C5.19 13.714 4.781 13.768 4.36 13.768C4.06 13.768 3.767 13.739 3.483 13.686C4.076 15.498 5.763 16.813 7.771 16.85C6.196 18.067 4.206 18.79 2.046 18.79C1.674 18.79 1.309 18.769 0.95 18.73C2.979 20.018 5.39 20.762 7.977 20.762C16.647 20.762 21.332 13.842 21.332 7.858C21.332 7.651 21.327 7.447 21.318 7.244C22.228 6.578 23.018 5.763 23.641 4.838L23.643 4.937Z" fill="currentColor"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.09 16.99 14.83 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 13.95 10.7 14 10.49C14.0069 10.4582 14.006 10.4252 13.9973 10.3938C13.9886 10.3624 13.9724 10.3337 13.95 10.31C13.89 10.26 13.81 10.28 13.74 10.29C13.65 10.31 12.25 11.24 9.52 13.08C9.12 13.35 8.76 13.49 8.44 13.48C8.08 13.47 7.4 13.28 6.89 13.11C6.26 12.91 5.77 12.8 5.81 12.45C5.83 12.27 6.08 12.09 6.55 11.9C9.47 10.63 11.41 9.79 12.38 9.39C15.16 8.23 15.73 8.03 16.11 8.03C16.19 8.03 16.38 8.05 16.5 8.15C16.6 8.23 16.63 8.34 16.64 8.42C16.63 8.48 16.65 8.66 16.64 8.8Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="footer-nav">
+                <a href="/dashboard">dashboard</a>
+                <span>||</span>
+                <a href="/logout">logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/js/synthwave.js"></script>
+</body>
+</html>
